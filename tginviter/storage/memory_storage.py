@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from tg_inviter.storage.base_storage import BaseStorage
+from tginviter.storage.base_storage import BaseStorage
 
 
 class MemoryStorage(BaseStorage):

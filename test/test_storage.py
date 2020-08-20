@@ -7,7 +7,7 @@ import uuid
 if __name__ == '__main__':
     __import__("sys").path.append("./../")
 
-from tg_inviter.storage import BaseStorage, MemoryStorage
+from tginviter.storage import BaseStorage, MemoryStorage
 
 
 class TestMemoryStorage(unittest.TestCase):
