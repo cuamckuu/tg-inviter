@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from tginviter.storage.base_storage import BaseStorage
 
 
@@ -9,13 +7,18 @@ class MemoryStorage(BaseStorage):
     def __init__(self):
         """Create in-memory dict to store invite tokens"""
 
-        self.storage = defaultdict(lambda: [0, 0])
+        self.storage = {}
 
-    def insert(self, token, max_uses):
-        self.storage[token][1] = max_uses
+    def insert(self, token, max_uses, *, channel=None):
+        self.storage[token] = [0, max_uses, channel]
 
     def uses_left(self, token):
-        return max(0, self.storage[token][1] - self.storage[token][0])
+        t = self.storage.get(token, [0, 0, None])
+
+        return max(0, t[1] - t[0])
 
     def count_new_use(self, token):
         self.storage[token][0] += 1
+
+    def get_channel(self, token):
+        return self.storage.get(token, [0, 0, None])[2]
