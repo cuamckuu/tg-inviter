@@ -13,20 +13,30 @@ class TestMemoryStorage(unittest.TestCase):
 
     def setUp(self):
         self.storage = MemoryStorage()
+        self.token = "123"
+
+        self.assertIsInstance(self.storage, BaseStorage)
 
     def test_storage(self):
-        token = self.storage.generate_token()
+        uses_left = self.storage.uses_left(self.token)
+        self.assertEqual(uses_left, 0)
 
-        self.assertEqual(self.storage.uses_left(token), 0)
+        self.storage.insert(self.token, 5, channel=None)
 
-        self.storage.insert(token, 5)
-
-        self.assertEqual(self.storage.uses_left(token), 5)
+        uses_left = self.storage.uses_left(self.token)
+        self.assertEqual(uses_left, 5)
 
         for _ in range(5):
-            self.storage.count_new_use(token)
+            self.storage.count_new_use(self.token)
 
-        self.assertEqual(self.storage.uses_left(token), 0)
+        self.assertEqual(self.storage.uses_left(self.token), 0)
+
+    def test_channel(self):
+        self.storage.insert(self.token, 5, channel=None)
+        self.assertIsNone(self.storage.get_channel(self.token))
+
+        self.storage.insert(self.token, 5, channel="qwe")
+        self.assertEqual(self.storage.get_channel(self.token), "qwe")
 
 
 if __name__ == '__main__':
