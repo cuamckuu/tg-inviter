@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import unittest
 import os
 
@@ -22,7 +19,3 @@ class TestEnvVariables(unittest.TestCase):
         TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 
         self.assertIsNotNone(TELEGRAM_BOT_TOKEN)
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)

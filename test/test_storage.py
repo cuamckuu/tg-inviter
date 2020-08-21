@@ -1,12 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import unittest
 
-if __name__ == '__main__':
-    __import__("sys").path.append("./../")
-
-from tginviter.storage import BaseStorage, MemoryStorage  # noqa: E402
+from tginviter.storage import BaseStorage, MemoryStorage
 
 
 class TestMemoryStorage(unittest.TestCase):
@@ -37,7 +31,3 @@ class TestMemoryStorage(unittest.TestCase):
 
         self.storage.insert(self.token, 5, channel="qwe")
         self.assertEqual(self.storage.get_channel(self.token), "qwe")
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
