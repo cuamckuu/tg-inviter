@@ -1,13 +1,12 @@
 #!/usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import unittest
-import uuid
 
 if __name__ == '__main__':
     __import__("sys").path.append("./../")
 
-from tginviter.storage import BaseStorage, MemoryStorage
+from tginviter.storage import BaseStorage, MemoryStorage  # noqa: E402
 
 
 class TestMemoryStorage(unittest.TestCase):
