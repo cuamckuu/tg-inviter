@@ -15,7 +15,7 @@ class TestMemoryStorage(unittest.TestCase):
         uses_left = self.storage.uses_left(self.token)
         self.assertEqual(uses_left, 0)
 
-        self.storage.insert(self.token, 5, channel=None)
+        self.storage.insert(self.token, 5, payload=None)
 
         uses_left = self.storage.uses_left(self.token)
         self.assertEqual(uses_left, 5)
@@ -25,9 +25,24 @@ class TestMemoryStorage(unittest.TestCase):
 
         self.assertEqual(self.storage.uses_left(self.token), 0)
 
-    def test_channel(self):
-        self.storage.insert(self.token, 5, channel=None)
-        self.assertIsNone(self.storage.get_channel(self.token))
+    def test_default_payload(self):
+        self.storage.insert(self.token, 5)
+        self.assertIsNone(self.storage.get_payload(self.token))
 
-        self.storage.insert(self.token, 5, channel="qwe")
-        self.assertEqual(self.storage.get_channel(self.token), "qwe")
+    def test_null_payload(self):
+        self.storage.insert(self.token, 5, payload=None)
+        self.assertIsNone(self.storage.get_payload(self.token))
+
+    def test_string_payload(self):
+        self.storage.insert(self.token, 5, payload="qwe")
+        self.assertEqual(self.storage.get_payload(self.token), "qwe")
+
+    def test_non_string_payload(self):
+        with self.assertRaises(TypeError):
+            self.storage.insert(self.token, 5, payload=[])
+
+        with self.assertRaises(TypeError):
+            self.storage.insert(self.token, 5, payload={})
+
+        with self.assertRaises(TypeError):
+            self.storage.insert(self.token, 5, payload=123)
