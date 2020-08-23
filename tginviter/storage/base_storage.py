@@ -5,8 +5,8 @@ class BaseStorage(abc.ABC):
     """Abstract base class for storing invite link tokens"""
 
     @abc.abstractmethod
-    def insert(self, token, max_usages, *, channel=None):
-        """Insert new channel's invite token to storage"""
+    def insert(self, token, max_usages, *, payload=None):
+        """Insert token to storage with optional amount of uses and payload"""
         pass
 
     @abc.abstractmethod
@@ -20,6 +20,6 @@ class BaseStorage(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_channel(self, token):
-        """Return channel assosciated with given token"""
+    def get_payload(self, token):
+        """Return payload assosciated with given token"""
         pass
