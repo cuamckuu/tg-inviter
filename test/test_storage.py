@@ -92,3 +92,33 @@ class TestMemoryStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.storage.insert(self.token, max_uses=5, payload=123)
 
+    def test_get_empty_channel_ids(self):
+        channel_ids = self.storage.get_channel_ids()
+
+        self.assertSetEqual(channel_ids, set())
+
+    def test_get_channel_ids(self):
+        payload1 = self.payload.copy()
+        payload1["channel_id"] = -100123123
+
+        self.storage.insert(self.token, max_uses=1, payload=payload1)
+        channel_ids = self.storage.get_channel_ids()
+
+        self.assertSetEqual(channel_ids, {-100123123})
+
+        payload2 = self.payload.copy()
+        payload2["channel_id"] = -100456456
+        self.storage.insert(self.token, max_uses=1, payload=payload2)
+        channel_ids = self.storage.get_channel_ids()
+
+        self.assertSetEqual(channel_ids, {-100123123, -100456456})
+
+    def test_whitelist(self):
+        channel_id = 123
+        user_id = 456
+
+        self.assertFalse(self.storage.is_subscribed(channel_id, user_id))
+
+        self.storage.add_subscription(channel_id, user_id)
+
+        self.assertTrue(self.storage.is_subscribed(channel_id, user_id))
