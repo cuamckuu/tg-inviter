@@ -1,6 +1,7 @@
 import unittest
 
-from tginviter import generate_invite_link, get_random_token
+from tginviter import generate_invite_link, get_random_token, \
+        generate_joinchat_link
 
 
 class TestLinksGeneration(unittest.TestCase):
@@ -97,3 +98,20 @@ class TestLinksGeneration(unittest.TestCase):
             self.bot_name, token=self.token, proto="tg", short=False
         )
         self.assertEqual(link, tg)
+
+    def test_joinchat_short_link(self):
+        https = f"https://t.me/joinchat/{self.token}"
+        http = f"http://t.me/joinchat/{self.token}"
+
+        link = generate_joinchat_link(self.token)
+        self.assertEqual(link, https)
+
+        link = generate_joinchat_link(self.token, short=True)
+        self.assertEqual(link, https)
+
+    def test_joinchat_full_link(self):
+        https = f"https://telegram.me/joinchat/{self.token}"
+        http = f"http://telegram.me/joinchat/{self.token}"
+
+        link = generate_joinchat_link(self.token, short=False)
+        self.assertEqual(link, https)
