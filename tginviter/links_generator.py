@@ -9,9 +9,8 @@ def get_random_token():
 
 def generate_invite_link(
     bot_name,
-    token=None,
     *,
-    channel=None,
+    token=None,
     max_uses=1,
     short=True,
     proto="https"
@@ -34,3 +33,12 @@ def generate_invite_link(
         params = f"?domain={bot_name}&start={token}"
 
     return f"{proto}://{domain}{params}", str(token)
+
+def generate_joinchat_link(token, short=True):
+    """Generate joinchat link"""
+
+    domain = "telegram.me"
+    if short:
+        domain = "t.me"
+
+    return f"https://{domain}/joinchat/{token}"
