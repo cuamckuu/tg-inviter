@@ -52,51 +52,51 @@ In example I did it like so:
 
 ```python3
 def create_callbacks(storage, client):
-	def deeplink_handler(update, context):
-		if not context.args:
-			return
+    def deeplink_handler(update, context):
+        if not context.args:
+            return
 
-		token = context.args[0]
-		if storage.uses_left(token) <= 0:
+        token = context.args[0]
+        if storage.uses_left(token) <= 0:
             if update.message:
-			    update.message.reply_text("Error")
-			return
+                update.message.reply_text("Error")
+            return
 
-		payload = storage.get_payload(token)
+        payload = storage.get_payload(token)
 
-		joinchat_key = payload["joinchat_key"]
-		keyboard = InlineKeyboardMarkup.from_button(
-			InlineKeyboardButton(
-				text="Join channel",
-				url=generate_joinchat_link(joinchat_key)
-			)
-		)
+        joinchat_key = payload["joinchat_key"]
+        keyboard = InlineKeyboardMarkup.from_button(
+            InlineKeyboardButton(
+                text="Join channel",
+                url=generate_joinchat_link(joinchat_key)
+            )
+        )
 
-		channel_id = payload["channel_id"]
-		user_id = update.effective_user.id
+        channel_id = payload["channel_id"]
+        user_id = update.effective_user.id
 
-		storage.add_subscription(channel_id, user_id)
-		storage.count_new_use(token)
+        storage.add_subscription(channel_id, user_id)
+        storage.count_new_use(token)
 
-		if update.message:
-			update.message.reply_text(
-				"Success",
-				reply_markup=keyboard
-			)
+        if update.message:
+            update.message.reply_text(
+                "Success",
+                reply_markup=keyboard
+            )
 
-	job_num = 0
-	def job_handler(context):
-		nonlocal job_num
-		job_num += 1
+    job_num = 0
+    def job_handler(context):
+        nonlocal job_num
+        job_num += 1
 
-		if job_num == 1:
-			for channel_id in storage.get_channel_ids():
-				client.subscribe_everyone(channel_id, storage)
-		else:
-			for channel_id in storage.get_channel_ids():
-				client.ban_extra_users(channel_id, storage)
+        if job_num == 1:
+            for channel_id in storage.get_channel_ids():
+                client.subscribe_everyone(channel_id, storage)
+        else:
+            for channel_id in storage.get_channel_ids():
+                client.ban_extra_users(channel_id, storage)
 
-	return deeplink_handler, job_handler
+    return deeplink_handler, job_handler
   ```
 
 ### Initialize `Storage`, `PythonTelegramBot` and `TelethonClient`
