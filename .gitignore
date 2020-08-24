@@ -2,4 +2,7 @@ env/
 __pycache__/
 .env
 notes.txt
-sessions
+sessions/
+build/
+dist/
+*.egg-info/
