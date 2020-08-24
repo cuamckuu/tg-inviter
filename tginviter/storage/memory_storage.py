@@ -1,3 +1,5 @@
+import json
+
 from tginviter.storage.base_storage import BaseStorage
 
 
@@ -9,11 +11,14 @@ class MemoryStorage(BaseStorage):
 
         self.storage = {}
 
-    def insert(self, token, max_uses, *, payload=None):
-        if payload is not None and type(payload) != str:
-            raise TypeError("Only string payloads supported")
+    def insert(self, token, *, payload, max_uses=1):
+        super().insert(token, payload=payload, max_uses=max_uses)
 
-        self.storage[str(token)] = [0, max_uses, payload]
+        payload_str = None
+        if payload:
+            payload_str = json.dumps(payload)
+
+        self.storage[str(token)] = [0, max_uses, payload_str]
 
     def uses_left(self, token):
         t = self.storage.get(str(token), [0, 0, None])
@@ -24,4 +29,10 @@ class MemoryStorage(BaseStorage):
         self.storage[str(token)][0] += 1
 
     def get_payload(self, token):
-        return self.storage.get(str(token), [0, 0, None])[2]
+        payload = self.storage.get(str(token), [0, 0, None])[2]
+
+        if payload:
+            return json.loads(payload)
+
+        return None
+
