@@ -1,4 +1,3 @@
-from tginviter.client.base_client import BaseClient
-from tginviter.client.client import TelegramClient
+from tginviter.client.telegram_client import TelethonClient
 
-__all__ = ["BaseClient", "TelegramClient"]
+__all__ = ["TelethonClient"]

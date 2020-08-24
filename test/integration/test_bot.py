@@ -6,7 +6,7 @@ import uuid
 from dotenv import load_dotenv, find_dotenv
 
 from tginviter.bot import PythonTelegramBot
-from tginviter.client import TelegramClient
+from tginviter.client import TelethonClient
 from tginviter.storage import MemoryStorage
 
 load_dotenv(find_dotenv())
