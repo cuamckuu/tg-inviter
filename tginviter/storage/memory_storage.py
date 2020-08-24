@@ -10,6 +10,7 @@ class MemoryStorage(BaseStorage):
         """Create in-memory dict to store invite tokens"""
 
         self.storage = {}
+        self.whitelist = {}
 
     def insert(self, token, *, payload, max_uses=1):
         super().insert(token, payload=payload, max_uses=max_uses)
@@ -19,6 +20,7 @@ class MemoryStorage(BaseStorage):
             payload_str = json.dumps(payload)
 
         self.storage[str(token)] = [0, max_uses, payload_str]
+        self.whitelist[payload["channel_id"]] = []
 
     def uses_left(self, token):
         t = self.storage.get(str(token), [0, 0, None])
@@ -36,3 +38,14 @@ class MemoryStorage(BaseStorage):
 
         return None
 
+    def get_channel_ids(self):
+        return set(self.whitelist.keys())
+
+    def is_subscribed(self, channel_id, user_id):
+        return (user_id in self.whitelist.get(channel_id, []))
+
+    def add_subscription(self, channel_id, user_id):
+        if channel_id not in self.whitelist:
+            self.whitelist[channel_id] = []
+
+        return self.whitelist[channel_id].append(user_id)

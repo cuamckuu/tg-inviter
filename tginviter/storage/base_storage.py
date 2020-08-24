@@ -1,4 +1,5 @@
 import abc
+from typing import AbstractSet
 
 
 class BaseStorage(abc.ABC):
@@ -20,16 +21,31 @@ class BaseStorage(abc.ABC):
             raise TypeError("Value of 'joinchat_key' should be str")
 
     @abc.abstractmethod
-    def uses_left(self, token) -> int:
+    def uses_left(self, token: str) -> int:
         """Return amount of unused invitations for token"""
         pass
 
     @abc.abstractmethod
-    def count_new_use(self, token):
+    def count_new_use(self, token: str):
         """Increase token usages count"""
         pass
 
     @abc.abstractmethod
-    def get_payload(self, token):
+    def get_payload(self, token: str) -> dict:
         """Return payload assosciated with given token"""
+        pass
+
+    @abc.abstractmethod
+    def get_channel_ids(self) -> AbstractSet[int]:
+        """Return set of all inserted channel_ids"""
+        pass
+
+    @abc.abstractmethod
+    def is_subscribed(self, channel_id: int, user_id: int) -> bool:
+        """Check if user is in channel's whitelist"""
+        pass
+
+    @abc.abstractmethod
+    def add_subscription(self, channel_id: int, user_id: int):
+        """Subscribe user to be in channel whitelist"""
         pass
