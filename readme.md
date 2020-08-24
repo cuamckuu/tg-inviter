@@ -7,7 +7,7 @@
 
 ## Why `tginviter`?
 
-Some projects requires personal invite liks for joining channels, so that it's can't be stolen, but Telegram API and existing modules lacks this functional, that's why I decided to code it by my own.
+Some projects requires personal invite liks for joining channels, because joinchat link is can easy be stolen. Unfortunately, Telegram API and existing Pytohn modules lacks functional to protect invite links, that's why I decided to code it by myself.
 
 ## How does it work?
 
@@ -29,7 +29,6 @@ git clone https://github.com/cuamckuu/tg-inviter.git
 cd tg-inviter
 cp -r ./tginviter/ /path/to/your/directory
 ```
-
 
 ## Usage
 
