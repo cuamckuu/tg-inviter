@@ -1,10 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 from telegram.ext import MessageHandler, Filters
-from dotenv import load_dotenv, find_dotenv
 
 from tginviter.bot.base_bot import BaseBot
-
-load_dotenv(find_dotenv())
 
 
 class PythonTelegramBot(BaseBot):
