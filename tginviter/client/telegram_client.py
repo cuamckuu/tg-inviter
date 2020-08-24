@@ -5,16 +5,14 @@ from telethon import TelegramClient, events
 class TelethonClient:
     """Telethon based class to ban 'bad' users due to subscription whitelist"""
 
-    def __init__(self, *, session, api_id, api_hash):
+    def __init__(self, *, session=None, api_id, api_hash):
         """Construct BaseClient with telethon TelegramClient"""
-
-        self._session = session
-        self._api_id = api_id
-        self._api_hash = api_hash
 
         self.telethon = TelegramClient(session, api_id, api_hash)
 
     def ban_extra_users(self, channel_id, storage):
+        """Ban all channel's users, who doesn't have subscription in storage"""
+
         with self.telethon as client:
             return client.loop.run_until_complete(
                 self.__ban_extra_users(channel_id, storage)
@@ -33,6 +31,8 @@ class TelethonClient:
                 print("Banned: ", user)
 
     def subscribe_everyone(self, channel_id, storage):
+        """Add every user on channel to storgae subscriptions list"""
+
         with self.telethon as client:
             return client.loop.run_until_complete(
                 self.__subscribe_everyone(channel_id, storage)
