@@ -27,7 +27,11 @@ For now you could clone repository and copy module to needed location.
 ```bash
 git clone https://github.com/cuamckuu/tg-inviter.git
 cd tg-inviter
-cp -r ./tginviter/ /path/to/your/directory
+python setup.py install
+
+# Or
+
+python -m pip install git+https://github.com/cuamckuu/tg-inviter.git#egg=tg-inviter
 ```
 
 ## Usage
