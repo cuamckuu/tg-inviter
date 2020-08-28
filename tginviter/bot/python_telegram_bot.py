@@ -15,7 +15,8 @@ class PythonTelegramBot(BaseBot):
             CommandHandler(
                 "start",
                 deeplink_handler,
-                pass_args=True
+                pass_args=True,
+                filters=Filters.regex("/start \S+")
             )
         )
 
