@@ -3,7 +3,7 @@
 `tginviter` is a Python3 module to generate and process personal invite links for Telegram channels.
 
 ## Demo
-![Demo GIF](https://psv4.userapi.com/c848128/u41009695/docs/d2/d10733fd7851/tg_inviter_demo.gif?extra=9Sf6M0NhuE8LtVt1ZFlyqlmP_7rTOEYceqE2AyS51FYdFWy5VVOFxIdt6S20lrci-kfCk7vKv9nQ96lZAuVtWE37FQGLWJ9f4OS6AE2r6xN0ttKw5inlJ_iepm3EM8jL_G-3sO0s00M_aEaWoxUNvA)
+![Demo GIF](./demo.gif)
 
 ## Why `tginviter`?
 
