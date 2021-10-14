@@ -1,3 +1,13 @@
+# Alert
+
+Telegram team added new [invite links](https://telegram.org/blog/autodelete-inv2?ln=r#expiring-invite-links) 
+
+> Along with the main invite link, owners and admins can now create additional links with a limited duration, number of uses, or both.
+
+So, this library seems outdated and should not be used. Prefer `createChatInviteLink` from [docs](https://core.telegram.org/bots/api#createchatinvitelink)
+
+---
+
 # Telegram Inviter - `tginviter`
 
 `tginviter` is a Python3 module to generate and process personal invite links for Telegram channels.
