@@ -17,7 +17,7 @@ So, this library seems outdated and should not be used. Prefer `createChatInvite
 
 ## Why `tginviter`?
 
-Some projects requires personal invite liks for joining channels, because joinchat link is can easy be stolen. Unfortunately, Telegram API and existing Pytohn modules lacks functional to protect invite links, that's why I decided to code it by myself.
+Some projects requires personal invite liks for joining channels, because joinchat link is can easy be stolen. Unfortunately, Telegram API and existing Python modules lacks functional to protect invite links, that's why I decided to code it by myself.
 
 ## How does it work?
 
